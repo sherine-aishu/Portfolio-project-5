@@ -1,0 +1,30 @@
+# Create a folder for your application
+cd /
+mkdir tool
+cd tool/  
+
+# Create python application file
+vi app.py 
+**************************************************************************
+from flask import Flask
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return "Welcome to my app"
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=80)
+**************************************************************************
+
+# Run your flask application
+FLASK_APP=app.py FLASK_RUN_HOST=0.0.0.0 FLASK_RUN_PORT=80 flask run
+
+# Access your application
+curl http://127.0.0.1:80 (or) curl http://localhost:80
+
+# Access your application via internet
+curl http://publicip:80 
+
+This will not work , because we were using the development server of flask. Inorder to access your python flask app from internet.
+Replace the development server with uwsgi.
