@@ -1,0 +1,40 @@
+As we know, uwsgi is a web server gateway interface which is used to host your python flask application.
+
+# Install uwsgi (inside venv)
+pip install wheel
+pip install --upgrade setuptools pip
+sudo yum groupinstall 'Development Tools'
+sudo yum install python3-devel
+python /root/.local/share/virtualenv/wheel/3.9/image/1/CopyPipInstall/setuptools-59.6.0-py3-none-any/pkg_resources/tests/data/my-test-package-source/setup.py bdist_wheel
+pip install uwsgi
+
+# Using uwsgi application server to host our application via browser on port 80
+cd /tool/
+vi app.ini
+**********************************************************************************************
+[uwsgi]
+module = app:app
+master = true
+processes = 5
+http = :80
+pidfile = /tmp/uwsgi.pid
+vacuum = true
+die-on-term = true
+**********************************************************************************************
+
+# Hosting your application using uwsgi application server (manual)
+uwsgi --ini app.ini
+
+# Accessing your application
+You can now access your python web application in browser on port 80, but firewalls port 80 needs to be allowed
+curl http://localhost:80 (success)
+curl http://publicip:80 (failure, because we haven't opened port 80 from firewalld)
+
+# Install Firewalld to open port 80
+yum install firewalld
+systemctl status firewalld
+sudo firewall-cmd --zone=public --permanent --add-port=80/tcp
+sudo systemctl reload firewalld
+
+# Accessing application from internet
+curl http://publicip:80 (success)
