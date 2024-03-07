@@ -1,0 +1,75 @@
+This documentation explains how to containerize your application using docker. Here, the dockerfile is written in 2 ways. You can follow anyone method to containerize your application. 
+
+# Be in tool directory
+cd /tool/
+
+# Install docker (inside venv)
+yum install docker -y
+systemctl start docker
+systemctl enable docker
+
+# Containerizing application Method A (w/o using requirements.txt file):
+vi Dockerfile
+**********************************************************************************************
+FROM python:3.7
+WORKDIR /tool
+COPY . /tool
+RUN apt-get update && \
+    mkdir /tools && \
+    cd /tools/ && \
+    apt-get install -y pip && \
+    pip install flask && \
+    python -c "import flask; print(flask.__version__)" && \
+    pip install virtualenv uwsgi && \
+    virtualenv venv && \
+    . ./venv/bin/activate && \
+    apt-get install -y gcc python3-dev && \  
+    pip install --upgrade wheel pip setuptools 
+EXPOSE 80
+CMD ["uwsgi", "--ini", "app.ini"]
+**********************************************************************************************
+
+                                                                                                 [OR]
+
+# Containerising application Method B (using requirements.txt file):
+vi Dockerfile
+**********************************************************************************************
+FROM python:3.7
+WORKDIR /tool
+COPY . /tool
+RUN apt-get update && \
+    apt-get install -y gcc python3-dev && \
+    pip install --upgrade wheel pip setuptools && \
+    pip install -r requirements.txt && \
+    python -c "import flask; print(flask.__version__)" && \
+    pip install virtualenv uwsgi && \
+    virtualenv venv && \
+    . ./venv/bin/activate
+EXPOSE 80
+CMD ["uwsgi", "--ini", "app.ini"]
+**********************************************************************************************
+
+# Adding requirements.txt file for Method B 
+requirements.txt
+**********************************************************************************************
+Flask==1.1.2
+Jinja2==2.11.3
+MarkupSafe==1.1.1
+itsdangerous==1.1.0
+Werkzeug==1.0.1
+**********************************************************************************************
+
+# Creating docker images
+docker build -t sherineseelan/test:apps .
+here, sherineseelan/test --> account-owner/docker-repository --> This detail is obtained from dockerhub
+
+# Creating docker containers
+docker run -p 80:80 -d sherineseelan/test:apps
+here, if you get error as port is already in use , then sudo lsof -i :80 , kill that process and try again
+
+# Accessing your application running in docker container on your host and via browser
+curl http://localhost:80
+curl http://publicip:80 
+Browser: publicip:80
+
+So the code is working fine in dev env , now lets push this to GitHub repo
