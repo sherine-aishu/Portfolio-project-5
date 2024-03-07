@@ -1,0 +1,48 @@
+Github worflows are used for CI/CD. Workflows here are used for deployment automation starting from building images , pushing it to hub and pulling images on production server and starting our container where the application is served.
+
+# WF1 is for build and push 
+In repository, create a new file .github/workflows/wf1.yml
+
+.yml
+
+here, 
+      Authentication to dockerhub from github repository is essential. So the username and password of dockerhub account is going to be stored as secrets in github
+      settings --> secret --> actions --> new repo secret
+      DOC_USERNAME put in your username 
+      DOC_PASSWORD put in your password
+
+# WF2 is for pull and run
+In repository, create a new file .github/workflows/wf2.yml
+
+.yml
+
+here, 
+      WF2 will contain an IP. This IP needs to be replaced by the IP of your production server.
+      Pulling image into production server is basically a command executed on production servers by github actions. So github requires access to ssh into the production servers. Below process will let you know how to setup ssh authentication.
+
+# Set up authentication in GitHub to access our production servers
+Login to server as ec2-user
+ssh-keygen -t rsa -b 4096 -C "your_email@example.com”
+cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
+chmod 600 id_rsa
+
+Copy the private key and paste it in the secret variable created as mentioned below
+settings --> secret --> actions --> new repo secret
+PRIVATE_KEY put in your privatekey
+
+If you receive permission denied error while authentication, then we need to try and validate the ssh key from our local machine
+scp -i 'keypair.pem' ec2-user@prodpubip:/home/ec2-user/.ssh/id_rsa .
+ssh -i id_rsa ec2-user@prodpubip
+here,
+      If the authentication is successful, then issue is with secret that you saved.
+      If the authentication is not successful,
+Do abve to check ssh working fine, if yes then create a secret in GitHub — seeings — secret — actions — new repo secret
+
+SSH_PRI — copy the private key and paste it here
+
+
+Step 7c: Now GitHub wf 2 will be able to login to prod server to perform any acton , i.e pull and run container n images
+
+Create pull req to master to trigger the wf
+
+Both wf success
