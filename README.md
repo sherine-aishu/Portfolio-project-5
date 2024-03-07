@@ -3,7 +3,7 @@ End-to-End Python Application Deployment using Docker and GitHub Actions
 
 **Project Overview**
 
-            *Initially, the Python application is tested locally in the developer environment. Following this, the application is containerized using Docker and tested locally once again. If all tests pass, the code is then pushed to the GitHub repository. This action triggers two workflows: the first workflow is responsible for building and pushing the Docker images to Docker Hub, while the second workflow pulls the Docker image and deploys the application on production servers. Prior to triggering these workflows, the setup of production servers and the authentication between GitHub and the production servers are completed. Once everything is set up correctly, the application running on the production servers can be accessed from the internet.*
+*Initially, the Python application is tested locally in the developer environment. Following this, the application is containerized using Docker and tested locally once again. If all tests pass, the code is then pushed to the GitHub repository. This action triggers two workflows: the first workflow is responsible for building and pushing the Docker images to Docker Hub, while the second workflow pulls the Docker image and deploys the application on production servers. Prior to triggering these workflows, the setup of production servers and the authentication between GitHub and the production servers are completed. Once everything is set up correctly, the application running on the production servers can be accessed from the internet.*
 
 **STEPS**
 
