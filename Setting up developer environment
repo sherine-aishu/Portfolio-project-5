@@ -1,0 +1,21 @@
+As we are planning to host a python web application, we are using flask which is a python web framework which is used to create python web applications.
+
+# Create a ec2 instance linux OS and switch as root user
+sudo su
+
+# Install python
+python —version
+yum install python — 3.9.16
+
+# Install pip
+yum install pip -y
+pip -V
+
+# Install flask
+pip install flask
+python -c "import flask; print(flask.__version__)"
+
+# Install virtual environment and activate the same
+pip install virtualenv
+virtualenv venv
+source ./venv/bin/activate
