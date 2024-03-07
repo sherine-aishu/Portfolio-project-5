@@ -1,0 +1,19 @@
+In our production host, before pulling images we need to make sure the servers are pre configured to avoid any discrepencies.
+
+# SG configuration
+In your EC2 security configuration make sure port 80 is opened.
+
+#Install docker
+yum install docker -y
+systemctl start docker
+systemctl enable docker
+
+# Enable firewalld
+yum install firewalld -y
+systemctl status firewalld
+systemctl start firewalld
+systemctl enable firewalld
+
+# Open port 80 for system level connectivity
+sudo firewall-cmd --zone=public --permanent --add-port=80/tcp
+sudo systemctl reload firewalld
