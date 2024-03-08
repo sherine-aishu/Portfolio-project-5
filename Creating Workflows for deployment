@@ -35,10 +35,7 @@ scp -i 'keypair.pem' ec2-user@prodpubip:/home/ec2-user/.ssh/id_rsa .
 ssh -i id_rsa ec2-user@prodpubip
 here,
       If the authentication is successful, then issue is with secret that you saved.
-      If the authentication is not successful,
-Do abve to check ssh working fine, if yes then create a secret in GitHub — seeings — secret — actions — new repo secret
-
-SSH_PRI — copy the private key and paste it here
+      If the authentication is not successful, then its the issue with the keypair and its permissions.
 
 
 Step 7c: Now GitHub wf 2 will be able to login to prod server to perform any acton , i.e pull and run container n images
