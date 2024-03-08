@@ -30,13 +30,14 @@ jobs:
         push: true
         tags: sherineseelan/hai:aio
 **********************************************************************************************
-                                                                  here, 
-                                                                        Authentication to dockerhub from github repository is essential. So the username and password of dockerhub account is going to be stored as secrets in github
-                                                                        settings --> secret --> actions --> new repo secret
-                                                                        DOC_USERNAME put in your username 
-                                                                        DOC_PASSWORD put in your password
-                                                                        sherineseelan/hai:aio --> acccountname/repositoryname:tag
 
+here, 
+    Authentication to dockerhub from github repository is essential. So the username and password of dockerhub account is going to be stored as secrets in github
+    settings --> secret --> actions --> new repo secret                                                                    
+    DOC_USERNAME put in your username                                                                  
+    DOC_PASSWORD put in your password                                                                   
+    sherineseelan/hai:aio --> acccountname/repositoryname:tag
+                                                                    
 # WF2 is for pull and run
 In repository, create a new file .github/workflows/wf2.yml
 
