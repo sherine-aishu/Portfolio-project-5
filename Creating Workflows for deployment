@@ -3,22 +3,76 @@ Github worflows are used for CI/CD. Workflows here are used for deployment autom
 # WF1 is for build and push 
 In repository, create a new file .github/workflows/wf1.yml
 
-.yml
+wf1.yml
+**********************************************************************************************
+name: Workflow1 for buikd and push
+on:
+  pull_request_target:¯
+    types:
+      - closed
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-here, 
-      Authentication to dockerhub from github repository is essential. So the username and password of dockerhub account is going to be stored as secrets in github
-      settings --> secret --> actions --> new repo secret
-      DOC_USERNAME put in your username 
-      DOC_PASSWORD put in your password
+    - name: Login to DockerHub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOC_USERNAME }}
+        password: ${{ secrets.DOC_PASSWORD }}
+
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v2
+      with:
+        context: .
+        push: true
+        tags: sherineseelan/hai:aio
+**********************************************************************************************
+                                                                  here, 
+                                                                        Authentication to dockerhub from github repository is essential. So the username and password of dockerhub account is going to be stored as secrets in github
+                                                                        settings --> secret --> actions --> new repo secret
+                                                                        DOC_USERNAME put in your username 
+                                                                        DOC_PASSWORD put in your password
+                                                                        sherineseelan/hai:aio --> acccountname/repositoryname:tag
 
 # WF2 is for pull and run
 In repository, create a new file .github/workflows/wf2.yml
 
-.yml
-
-here, 
-      WF2 will contain an IP. This IP needs to be replaced by the IP of your production server.
-      Pulling image into production server is basically a command executed on production servers by github actions. So github requires access to ssh into the production servers. Below process will let you know how to setup ssh authentication.
+wf2.yml
+**********************************************************************************************
+name: Workflow2 for Pull and run
+on:
+  workflow_run:
+    workflows: ["Workflow1 for buikd and push"]
+    types: 
+      - completed
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Login to DockerHub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOC_USERNAME }}
+        password: ${{ secrets.DOC_PASSWORD }}
+    - name: Install SSH
+      run: sudo apt-get install -y openssh-client
+    - name: Run commands on EC2
+      run: |
+        mkdir ~/.ssh
+        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh -o StrictHostKeyChecking=no ec2-user@13.233.227.88 << EOF
+        sudo su
+        docker pull ${{ secrets.DOC_USERNAME }}/test:aio
+        docker run -p 80:80 -d ${{ secrets.DOC_USERNAME }}/test:aio
+        EOF
+**********************************************************************************************
+                                                                  here, 
+                                                                        WF2 will contain an IP. This IP needs to be replaced by the IP of your production server.
+                                                                        Pulling image into production server is basically a command executed on production servers by github actions. So github requires access to ssh into the production servers. Below process will let you know how to setup ssh authentication.
 
 # Set up authentication in GitHub to access our production servers
 Login to server as ec2-user
@@ -28,8 +82,9 @@ chmod 600 id_rsa
 
 Copy the private key and paste it in the secret variable created as mentioned below
 settings --> secret --> actions --> new repo secret
-PRIVATE_KEY put in your privatekey
+SSH_PRIVATE_KEY put in your privatekey
 
+Note:
 If you receive permission denied error while authentication, then we need to try and validate the ssh key from our local machine
 scp -i 'keypair.pem' ec2-user@prodpubip:/home/ec2-user/.ssh/id_rsa .
 ssh -i id_rsa ec2-user@prodpubip
@@ -38,8 +93,3 @@ here,
       If the authentication is not successful, then its the issue with the keypair and its permissions.
 
 
-Step 7c: Now GitHub wf 2 will be able to login to prod server to perform any acton , i.e pull and run container n images
-
-Create pull req to master to trigger the wf
-
-Both wf success
