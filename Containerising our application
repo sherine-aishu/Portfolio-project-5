@@ -70,6 +70,6 @@ here, if you get error as port is already in use , then sudo lsof -i :80 , kill 
 # Accessing your application running in docker container on your host and via browser
 curl http://localhost:80
 curl http://publicip:80 
-Browser: publicip:80
+Browser: http://publicip:80
 
 So the code is working fine in dev env , now lets push this to GitHub repo
