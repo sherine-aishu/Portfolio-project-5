@@ -1,0 +1,7 @@
+Once all setup is done, you should be able to access your application running in containers inside your production servers from internet.
+
+# Accessing your application
+Browser: http://publicip:80
+
+# Accessing your application inside host
+curl http://publicip:80 
