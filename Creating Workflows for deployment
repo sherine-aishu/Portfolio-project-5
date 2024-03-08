@@ -37,7 +37,8 @@ here,
     DOC_USERNAME put in your username                                                                  
     DOC_PASSWORD put in your password                                                                   
     sherineseelan/hai:aio --> acccountname/repositoryname:tag
-                                                                    
+
+
 # WF2 is for pull and run
 In repository, create a new file .github/workflows/wf2.yml
 
@@ -71,9 +72,9 @@ jobs:
         docker run -p 80:80 -d ${{ secrets.DOC_USERNAME }}/test:aio
         EOF
 **********************************************************************************************
-                                                                  here, 
-                                                                        WF2 will contain an IP. This IP needs to be replaced by the IP of your production server.
-                                                                        Pulling image into production server is basically a command executed on production servers by github actions. So github requires access to ssh into the production servers. Below process will let you know how to setup ssh authentication.
+here, 
+    WF2 will contain an IP. This IP needs to be replaced by the IP of your production server.
+    Pulling image into production server is basically a command executed on production servers by github actions. So github requires access to ssh into the production servers. Below process will let you know how to setup ssh authentication.
 
 # Set up authentication in GitHub to access our production servers
 Login to server as ec2-user
