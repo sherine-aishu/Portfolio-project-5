@@ -72,6 +72,7 @@ jobs:
         docker run -p 80:80 -d ${{ secrets.DOC_USERNAME }}/test:aio
         EOF
 **********************************************************************************************
+
 here, 
     WF2 will contain an IP. This IP needs to be replaced by the IP of your production server.
     Pulling image into production server is basically a command executed on production servers by github actions. So github requires access to ssh into the production servers. Below process will let you know how to setup ssh authentication.
@@ -90,6 +91,7 @@ Note:
 If you receive permission denied error while authentication, then we need to try and validate the ssh key from our local machine
 scp -i 'keypair.pem' ec2-user@prodpubip:/home/ec2-user/.ssh/id_rsa .
 ssh -i id_rsa ec2-user@prodpubip
+
 here,
       If the authentication is successful, then issue is with secret that you saved.
       If the authentication is not successful, then its the issue with the keypair and its permissions.
