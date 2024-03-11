@@ -5,7 +5,7 @@ git --version
 yum install git
 
 # Intialize a git repository
-Login to your Github repo in GUI and create a repository. Also do create a branch as master.
+Login to your Github repo in GUI and create a repository. Also do create a branch as master by adding a sample test file (master is default branch).
 cd /tool/
 git init
 git status
@@ -13,11 +13,12 @@ git add .
 git commit -m ‘first commit’
 git branch b1
 git checkout b1
+git branch
 
 # Add your remote git repository
-git remote add origin https://github.com/Sherineseelan/hai.git
+git remote add origin https://github.com/Sherineseelan/repo.git
 here, Sherineseelan --> account owner name
-      hai.git --> repository name
+      repo.git --> repository name
 
 # Push your image to repository in docker hub
 git push -u origin b1
