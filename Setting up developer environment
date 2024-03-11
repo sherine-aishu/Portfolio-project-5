@@ -14,11 +14,11 @@ yum install python — 3.9.16
 yum install pip -y
 pip -V
 
-# Install flask
-pip install flask
-python -c "import flask; print(flask.__version__)"
-
 # Install virtual environment and activate the same
 pip install virtualenv
 virtualenv venv
 source ./venv/bin/activate
+
+# Install flask
+pip install flask
+python -c "import flask; print(flask.__version__)"
