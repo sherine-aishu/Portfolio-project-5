@@ -5,6 +5,7 @@ git --version
 yum install git
 
 # Intialize a git repository
+Login to your Github repo in GUI and create a repository. Also do create a branch as main.
 cd /tool/
 git init
 git status
