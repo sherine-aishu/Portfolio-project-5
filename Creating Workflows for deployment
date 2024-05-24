@@ -7,7 +7,7 @@ wf1.yml
 **********************************************************************************************
 name: Workflow1 for build and push
 on:
-  pull_request_target:¯
+  pull_request_target:
     types:
       - closed
 jobs:
