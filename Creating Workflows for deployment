@@ -47,7 +47,7 @@ wf2.yml
 name: Workflow2 for Pull and run
 on:
   workflow_run:
-    workflows: ["Workflow1 for buikd and push"]
+    workflows: ["Workflow1 for build and push"]
     types: 
       - completed
 jobs:
