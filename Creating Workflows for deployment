@@ -5,7 +5,7 @@ In repository, create a new file .github/workflows/wf1.yml
 
 wf1.yml
 **********************************************************************************************
-name: Workflow1 for buikd and push
+name: Workflow1 for build and push
 on:
   pull_request_target:¯
     types:
