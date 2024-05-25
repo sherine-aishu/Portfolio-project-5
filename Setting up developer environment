@@ -21,4 +21,10 @@ source ./venv/bin/activate
 
 # Install flask
 pip install flask
-python -c "import flask; print(flask.__version__)"
+
+# Check flask version
+Enter into python terminal (python >>>)
+import importlib.metadata
+print(importlib.metadata.version("flask"))
+
+
