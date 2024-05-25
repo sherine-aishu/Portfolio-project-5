@@ -26,5 +26,5 @@ curl http://127.0.0.1:80 (or) curl http://localhost:80
 # Access your application via internet
 curl http://publicip:80 
 
-This will not work , because we were using the development server of flask. Inorder to access your python flask app from internet.
-Replace the development server with uwsgi.
+Here, flask uses the default development server within it to host the application which is not recommended. So we are using uWSGI. 
+
