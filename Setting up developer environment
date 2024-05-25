@@ -26,5 +26,6 @@ pip install flask
 Enter into python terminal (python >>>)
 import importlib.metadata
 print(importlib.metadata.version("flask"))
+quit()
 
 
