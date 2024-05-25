@@ -12,7 +12,7 @@ End-to-End Python Application Deployment using Docker and GitHub Actions
 
                 Step 2: Running our application locally
                 
-                Step 3: Accessing our locally hosted application via internet
+                Step 3: Accessing our locally hosted application via internet (using uWSGI)
                 
                 Step 4: Containerising our application
                       a. w/o using requirements.txt 
