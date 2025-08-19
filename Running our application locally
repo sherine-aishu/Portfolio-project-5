@@ -26,5 +26,8 @@ curl http://127.0.0.1:80 (or) curl http://localhost:80
 # Access your application via internet
 curl http://publicip:80 
 
+# Hit from browser
+publicip:80
+
 Here, flask uses the default development server within it to host the application which is not recommended. So we are using uWSGI. 
 
