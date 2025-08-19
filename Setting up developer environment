@@ -6,18 +6,17 @@ In your EC2 security configuration make sure port 80 is opened.
 # Create a ec2 instance linux OS and switch as root user
 sudo su
 
-# Install python
-python —version
-yum install python — 3.9.16
+# Installing python
+yum install python -y
+python --version
 
-# Install pip
-yum install pip -y
-pip -V
+# Creating a virtual environment for python
+sudo yum install python3-pip
+sudo pip3 install virtualenv
+python3 -m virtualenv venv
 
-# Install virtual environment and activate the same
-pip install virtualenv
-virtualenv venv
-source ./venv/bin/activate
+# Activating the virtual environment
+source venv/bin/activate
 
 # Install flask
 pip install flask
@@ -27,5 +26,3 @@ Enter into python terminal (python >>>)
 import importlib.metadata
 print(importlib.metadata.version("flask"))
 quit()
-
-
