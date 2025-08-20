@@ -3,20 +3,16 @@ This documentation explains how to containerize your application using docker. H
 # Be in tool directory
 cd /tool/
 
-# Install required packages
-sudo yum install -y yum-utils device-mapper-persistent-data lvm2
-
-# Add Docker repo
-sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
-
-# Install Docker
-sudo yum install -y docker-ce docker-ce-cli containerd.io
-
-# Start Docker
-sudo systemctl status docker
+# Install docker
+sudo dnf update -y
+sudo dnf install docker -y
 sudo systemctl start docker
 sudo systemctl enable docker
-docker --version
+sudo usermod -aG docker $USER
+newgrp docker
+docker version
+docker info
+sudo systemctl status docker
 
 # Containerizing application Method A (w/o using requirements.txt file):
 vi Dockerfile
