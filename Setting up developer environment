@@ -1,7 +1,7 @@
 As we are planning to host a python web application, we are using flask which is a python web framework which is used to create python web applications.
 
 # OS Type
-Redhat 
+Amazon Linux
 
 # SG configuration
 In your EC2 security configuration make sure port 80 is opened.
